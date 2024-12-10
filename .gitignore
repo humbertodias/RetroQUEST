@@ -6,3 +6,6 @@ roms
 cores
 assets
 godot-cpp
+.sconsign.dblite
+libretro_binding/libretro_binding.os
+libretro_binding/libretro_binding.so
