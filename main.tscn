@@ -1,0 +1,160 @@
+[gd_scene load_steps=22 format=3 uid="uid://8roky2tr13v8"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_36sr1"]
+[ext_resource type="ArrayMesh" uid="uid://bggt7a5musnhs" path="res://assets/kenney_furniture-kit/Models/OBJ format/cabinetTelevision.obj" id="2_h1lnb"]
+[ext_resource type="Texture2D" uid="uid://rpfpax3cx88g" path="res://assets/textures/close-up-wooden-texture_23-2147625744.jpg" id="2_hgnca"]
+[ext_resource type="PackedScene" uid="uid://bkt5sw3j026sx" path="res://xr_origin_3d.tscn" id="2_jdtaa"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_76mo5"]
+[ext_resource type="ArrayMesh" uid="uid://12208cv4iusu" path="res://assets/kenney_furniture-kit/Models/OBJ format/bedSingle.obj" id="4_gdp5r"]
+[ext_resource type="PackedScene" uid="uid://coocuwjurtlft" path="res://assets/consoles/sega_genesis_model_2__sega_mega_drive.glb" id="5_o8gwv"]
+[ext_resource type="PackedScene" uid="uid://c5yymdsb50dia" path="res://assets/tv/crt_tv.glb" id="6_bla35"]
+[ext_resource type="Texture2D" uid="uid://cveoss57kakcb" path="res://assets/textures/orange-brick-wall.jpg" id="7_7vxdg"]
+[ext_resource type="ArrayMesh" uid="uid://js8c02ef5656" path="res://assets/kenney_furniture-kit/Models/OBJ format/doorway.obj" id="10_b82c5"]
+[ext_resource type="ArrayMesh" uid="uid://bqh7jhg02guef" path="res://assets/kenney_furniture-kit/Models/OBJ format/books.obj" id="11_6t3bm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_odtcn"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_d5n34"]
+sky_material = SubResource("ProceduralSkyMaterial_odtcn")
+
+[sub_resource type="Environment" id="Environment_rebsy"]
+background_mode = 2
+sky = SubResource("Sky_d5n34")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_022uh"]
+albedo_texture = ExtResource("2_hgnca")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t6a7n"]
+material = SubResource("StandardMaterial3D_022uh")
+size = Vector2(7, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_smmd7"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0ae1f"]
+viewport_path = NodePath("room/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0q3w"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_0ae1f")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dneyb"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("7_7vxdg")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vl1cb"]
+albedo_color = Color(1, 0.953959, 0.778434, 1)
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_36sr1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rebsy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 2.75, 0)
+directional_shadow_mode = 0
+
+[node name="room" type="Node" parent="."]
+
+[node name="floor" type="StaticBody3D" parent="room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room/floor"]
+mesh = SubResource("PlaneMesh_t6a7n")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room/floor"]
+shape = SubResource("BoxShape3D_smmd7")
+
+[node name="BedSingle" type="MeshInstance3D" parent="room"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.141, 0, 0.594707)
+mesh = ExtResource("4_gdp5r")
+skeleton = NodePath("../..")
+
+[node name="CabinetTelevision" type="MeshInstance3D" parent="room"]
+transform = Transform3D(-1.92921, 0, 2.29743, 0, 3, 0, -2.29743, 0, -1.92921, 0.849805, -0.0571399, -3.42659)
+mesh = ExtResource("2_h1lnb")
+skeleton = NodePath("../floor/CollisionShape3D")
+
+[node name="CRTTV" type="CSGBox3D" parent="room"]
+transform = Transform3D(0.643068, 0, -0.536066, 0, 0.9, 0, 0.765809, 0, 0.450148, 1.49155, 1.32038, -3.29054)
+use_collision = true
+material = SubResource("StandardMaterial3D_p0q3w")
+
+[node name="MegaDrive" parent="room" instance=ExtResource("5_o8gwv")]
+transform = Transform3D(0.00064082, 0, -0.000767691, 0, 0.001, 0, 0.000767691, 0, 0.00064082, 2.08216, 0.913985, -2.52858)
+
+[node name="CRTTV2" parent="room" instance=ExtResource("6_bla35")]
+transform = Transform3D(-1.32944, 0, 1.49418, 0, 2, 0, -1.49418, 0, -1.32944, 1.31505, 0.816899, -3.11279)
+
+[node name="brick wall" type="CSGBox3D" parent="room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53021, -4.14194)
+use_collision = true
+size = Vector3(6.72745, 6.15861, 0.141602)
+material = SubResource("StandardMaterial3D_dneyb")
+
+[node name="wall3" type="CSGBox3D" parent="room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0828514, 2.48109, 4.14488)
+use_collision = true
+size = Vector3(6.56174, 6.14909, 0.141602)
+material = SubResource("StandardMaterial3D_vl1cb")
+
+[node name="Doorway" type="MeshInstance3D" parent="room/wall3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 1, 2.53115, -2.52145, -0.14388)
+mesh = ExtResource("10_b82c5")
+skeleton = NodePath("../../..")
+
+[node name="wall2" type="CSGBox3D" parent="room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.08915, 2.41665, 0.056199)
+use_collision = true
+size = Vector3(8.52944, 6.14718, 0.141602)
+material = SubResource("StandardMaterial3D_vl1cb")
+
+[node name="wall4" type="CSGBox3D" parent="room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.03443, 2.56347, -0.053894)
+use_collision = true
+size = Vector3(8.60897, 5.83376, 0.141602)
+material = SubResource("StandardMaterial3D_vl1cb")
+
+[node name="roof" type="StaticBody3D" parent="room"]
+transform = Transform3D(0.906308, 0.422618, 0, 0.422618, -0.906308, -8.74228e-08, -3.69465e-08, 7.92319e-08, -1, 0, 3.8, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="room/roof"]
+mesh = SubResource("PlaneMesh_t6a7n")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room/roof"]
+shape = SubResource("BoxShape3D_smmd7")
+
+[node name="SubViewport" type="SubViewport" parent="room"]
+transparent_bg = true
+size = Vector2i(640, 480)
+
+[node name="ColorRect" type="ColorRect" parent="room/SubViewport"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.262745, 1, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="room/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="XROrigin3D" parent="." instance=ExtResource("2_jdtaa")]
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("3_76mo5")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/PlayerBody"]
+
+[node name="Books" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.617031, -0.0412188, 2.93557, 0.151763, 2.99525, 0.0739558, -2.93193, 0.163714, -0.613967, 2.30079, 0.879317, -2.22938)
+mesh = ExtResource("11_6t3bm")

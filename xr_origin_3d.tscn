@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkt5sw3j026sx"]
+
+[ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_qbwif"]
+[ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_36uji"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_btdts"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_4bh3e"]
+
+[node name="XROrigin3D" type="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+
+[node name="LeftHand" type="XRController3D" parent="."]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="LeftHand" instance=ExtResource("1_qbwif")]
+
+[node name="MovementDirect" parent="LeftHand" instance=ExtResource("2_btdts")]
+strafe = true
+
+[node name="RightHand" type="XRController3D" parent="."]
+tracker = &"right_hand"
+
+[node name="RightHand" parent="RightHand" instance=ExtResource("2_36uji")]
+
+[node name="MovementTurn" parent="RightHand" instance=ExtResource("4_4bh3e")]
+step_turn_angle = 45.0

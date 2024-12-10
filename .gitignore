@@ -5,3 +5,4 @@ addons/gdretroplay/build_linux
 roms
 cores
 assets
+godot-cpp

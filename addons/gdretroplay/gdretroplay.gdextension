@@ -1,0 +1,15 @@
+{
+    "entry_symbol": "gdextension_gdretroplay_library_init",
+    "library": [
+        {
+            "platform": "Linux",
+            "debug": "build/gdretroplay.linux.debug.so",
+            "release": "build/gdretroplay.linux.release.so"
+        },
+        {
+            "platform": "Android",
+            "debug": "build/gdretroplay.android.debug.so",
+            "release": "build/gdretroplay.android.release.so"
+        }
+    ]
+}
