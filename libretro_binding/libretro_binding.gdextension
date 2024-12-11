@@ -1,0 +1,6 @@
+{
+  "entry_class": "LibretroCoreBinding",
+  "library_path": "res://libretro_binding/libretro_binding.so",
+  "singleton": false,
+  "autoload": false
+}

@@ -25,6 +25,10 @@ XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[gd_extension]
+
+extensions=PackedStringArray("res://libretro_binding/libretro_binding.gdextension")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

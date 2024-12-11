@@ -1,0 +1,3 @@
+[submodule "external/gdlibretro"]
+	path = external/gdlibretro
+	url = https://github.com/gabrielmedici/gdlibretro
