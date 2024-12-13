@@ -1,0 +1,54 @@
+extends Node
+
+# Reference to the LibRetroHost singleton
+@onready var libretro_core = Engine.get_singleton("RetroHost")
+
+func start_game(core_path: String, rom_path: String) -> bool:
+	"""
+	Initializes the LibRetro core and loads the specified ROM.
+	Returns true if the game is loaded successfully, otherwise false.
+	"""
+	if not libretro_core.load_core(core_path):
+		push_error("Error: Unable to load LibRetro core: " + core_path)
+		return false
+
+	print("Core loaded successfully:", core_path)
+
+	if not FileAccess.file_exists(rom_path):
+		push_error("Error: ROM not found: " + rom_path)
+		return false
+
+	var rom_data = load_rom_data(rom_path)
+	if rom_data.is_empty():
+		push_error("Error: Unable to load ROM data: " + rom_path)
+		return false
+
+	if not libretro_core.load_game_from_memory(rom_data):
+		push_error("Error: Unable to load game ROM: " + rom_path)
+		return false
+
+	print("Game loaded successfully:", rom_path)
+	return true
+
+func load_rom_data(rom_path: String) -> PackedByteArray:
+	"""
+	Loads the ROM data from a file.
+	"""
+	var file = FileAccess.open(rom_path, FileAccess.READ)
+	if not file:
+		push_error("Error: Unable to open ROM file: " + rom_path)
+		return PackedByteArray()
+
+	var rom_data = file.get_buffer(file.get_length())
+	file.close()
+	return rom_data
+
+func run():
+	"""
+	Starts the emulation loop.
+	"""
+	if not libretro_core:
+		push_error("Error: LibRetroHost is not initialized.")
+		return
+
+	libretro_core.run()

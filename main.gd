@@ -1,26 +1,26 @@
-extends Node3D
+extends Node
 
-var xr_interface: XRInterface
-var emulator_script: Object
+@onready var loader = preload("res://scripts/libretro_loader.gd").new()
 
 func _ready():
-	# Inizializzazione OpenXR
-	xr_interface = XRServer.find_interface("OpenXR")
-	if xr_interface and xr_interface.is_initialized():
-		print("OpenXR initialized successfully")
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-		get_viewport().use_xr = true
+	var core_path = "res://cores/genesis_plus_gx_libretro.so"  # Replace with your actual core path
+	var rom_path = "res://roms/megadrive/Sonic the Hedgehog.bin"  # Replace with your actual ROM path
+	
+	print("Core path: ", core_path)
+	print("ROM path: ", rom_path)
+
+	var success = await loader.start_emulation(core_path, rom_path)  # Use await to call the coroutine
+	if success:
+		print("Game started successfully.")
+		start_emulation_loop()
 	else:
-		print("OpenXR not initialized, please check if your headset is connected")
+		print("Failed to start the game.")
 
-	# Carica lo script dell'emulatore
-	emulator_script = preload("res://scripts/emulate.gd").new()
+func start_emulation_loop():
+	"""
+	Continuously runs the emulation in the `_process` callback.
+	"""
+	set_process(true)
 
-func launch_game():
-	var core_path = "res://cores/genesis_plus_gx_libretro.so"
-	var rom_path = "res://roms/megadrive/Sonic the Hedgehog.bin"
-
-	if emulator_script.start_game(core_path, rom_path):
-		print("Il gioco è stato avviato con successo!")
-	else:
-		print("Errore durante l'avvio del gioco.")
+func _process(delta):
+	loader._process(delta)  # Delegate the frame updates to the loader

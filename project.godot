@@ -27,7 +27,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 [gd_extension]
 
-extensions=PackedStringArray("res://libretro_binding/libretro_binding.gdextension")
+extensions=PackedStringArray("res://addons/LibRetroHost.gdextension")
 
 [rendering]
 
