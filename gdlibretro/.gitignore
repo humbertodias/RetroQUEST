@@ -1,0 +1,9 @@
+CMakeLists.txt.user
+.vscode/settings.json
+build
+*.dll
+vicerc*
+*.exe
+*.pck
+
+!dosbox_pure_libretro.dll
