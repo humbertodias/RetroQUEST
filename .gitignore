@@ -3,7 +3,8 @@
 /android/
 roms
 cores
-godot-cpp
+#gdlibretro
+#godot-cpp
 .sconsign.dblite
 prompt.md
 *.import
