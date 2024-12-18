@@ -32,20 +32,11 @@ done
 
 write ""
 write "My issue now is the following, can you help me to fix it?"
-write "Godot says:
+write '
+I enter in the scene but the emulated game is not loaded, I just get this log:
 [RetroHost] Constructor
-  core/extension/gdextension.cpp:1011 - No GDExtension library found for current OS and architecture (linux.x86_64) in configuration file: res://gdlibretro/LibRetroHost/LibRetroHost.gdextension
-  Failed loading resource: res://gdlibretro/LibRetroHost/LibRetroHost.gdextension. Make sure resources have been imported by opening the project in the editor at least once.
-Core path: res://cores/genesis_plus_gx_libretro.so
-ROM path: res://roms/megadrive/Sonic the Hedgehog.bin
-Starting emulation with core: res://cores/genesis_plus_gx_libretro.so, ROM: res://roms/megadrive/Sonic the Hedgehog.bin
-Loading core...
-Failed to start the game.
---- Debugging process stopped ---
-  core/extension/gdextension.cpp:1011 - No GDExtension library found for current OS and architecture (linux.x86_64) in configuration file: res://gdlibretro/LibRetroHost/LibRetroHost.gdextension
-  Failed loading resource: res://gdlibretro/LibRetroHost/LibRetroHost.gdextension. Make sure resources have been imported by opening the project in the editor at least once.
-  core/extension/gdextension.cpp:1011 - No GDExtension library found for current OS and architecture (linux.x86_64) in configuration file: res://gdlibretro/LibRetroHost/LibRetroHost.gdextension
-  Failed loading resource: res://gdlibretro/LibRetroHost/LibRetroHost.gdextension. Make sure resources have been imported by opening the project in the editor at least once.
-"
+
+Maybe we should enhance the logging to understand what is actually happening
+'
 
 
