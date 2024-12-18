@@ -4,7 +4,9 @@
 
 # RetroQUEST
 
-> NOTE: RetroQUEST is a mere techincal preview now, the following description is the actual project scope and not what is actually implemented
+> [!IMPORTANT]
+> NOTE: RetroQUEST is a mere techincal preview now, the following description is the actual project scope and not what is actually implemented.
+> Assets are just placeholders and not final, every asset you see now will be discarded and redone.
 
 **RetroQUEST** is an immersive gaming experience that takes you through the history of video game consoles, from the earliest systems to the dawn of the 21st century. Designed in **GODOT 4.3** primarily for **Meta Quest 3**, it is also fully playable on **Linux** in a non-VR mode. RetroQUEST is a standalone application, providing a unique way to explore gaming history, manage consoles, and enjoy retro games.
 
@@ -72,7 +74,7 @@ We need passionate individuals to help the development of RetroQUEST, here’s w
 # Development notes
 
 ## Compiling gdlibretro
-RetroQUEST uses a customized version of the `gdlibretro` godot library (writtein in C++) to load libretro cores in Godot directly.
+RetroQUEST uses a customized version of the [gdlibretro](https://github.com/gabrielmedici/gdlibretro) godot library (writtein in C++) to load libretro cores in Godot directly.
 The project provides the library already compiled and even the sources in case the end user wants to edit and compile its own version.
 
 In order to do so just run:
