@@ -7,6 +7,7 @@
 > [!IMPORTANT]
 > NOTE: RetroQUEST is a mere techincal preview now, the following description is the actual project scope and not what is actually implemented.
 > Assets are just placeholders and not final, every asset you see now will be discarded and redone.
+> This repo is pretty much a dump, I will clean it up later, sorry.
 
 **RetroQUEST** is an immersive gaming experience that takes you through the history of video game consoles, from the earliest systems to the dawn of the 21st century. Designed in **GODOT 4.3** primarily for **Meta Quest 3**, it is also fully playable on **Linux** in a non-VR mode. RetroQUEST is a standalone application, providing a unique way to explore gaming history, manage consoles, and enjoy retro games.
 
