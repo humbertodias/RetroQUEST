@@ -5,6 +5,5 @@ roms
 cores
 godot-cpp
 .sconsign.dblite
-gdlibretro
 prompt.md
 *.import
