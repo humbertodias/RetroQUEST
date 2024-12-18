@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://0a7ejxv30o00"
+path="res://.godot/imported/basketball-game.obj-33661a9ea00b1b8241ae4db19254efc3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/basketball-game.obj-33661a9ea00b1b8241ae4db19254efc3.mesh"]
+
+source_file="res://assets/kenney_mini-arcade/Models/OBJ format/basketball-game.obj"
+dest_files=["res://.godot/imported/basketball-game.obj-33661a9ea00b1b8241ae4db19254efc3.mesh", "res://.godot/imported/basketball-game.obj-33661a9ea00b1b8241ae4db19254efc3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
