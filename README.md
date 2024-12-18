@@ -83,7 +83,10 @@ In order to do so just run:
 ```
 
 ## How to test RetroQUEST on PC
-Open the project with Godot 4.3 and run it from there
+- create a `roms` and `cores` folder in the root of the project
+- Place a game in the roms folder, for example now the path `roms/megadrive/Sonic the Hedgehog.bin` is hardcoded, if you want another one you must change the variable.
+- Same logic for the core, now hardcoded `cores/genesis_plus_gx_libretro.so`.
+- Open the project with Godot 4.3 and run it.
 
 ## How to test RetroQUEST on Meta Quest 3
 TBD
