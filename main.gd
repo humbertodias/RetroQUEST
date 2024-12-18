@@ -4,8 +4,15 @@ extends Node
 
 func _ready():
 	var core_path = "res://cores/genesis_plus_gx_libretro.so"  # Replace with your actual core path
+	if not FileAccess.file_exists(core_path):
+		push_error("Core not found at: " + core_path)
+	return false
+
 	var rom_path = "res://roms/megadrive/Sonic the Hedgehog.bin"  # Replace with your actual ROM path
-	
+	if not FileAccess.file_exists(rom_path):
+		push_error("Rom not found at: " + rom_path)
+	return false
+
 	print("Core path: ", core_path)
 	print("ROM path: ", rom_path)
 

@@ -9,8 +9,12 @@ var current_rom : String = ""  # Initialize to an empty string
 func start_emulation(core_path: String, rom_path: String) -> bool:
 	print("Starting emulation with core: ", core_path, ", ROM: ", rom_path)
 	
-	if not core_path or not rom_path:
-		push_error("Core path or ROM path is missing.")
+	if not core_path:
+		push_error("Core path is missing.")
+		return false
+	
+	if not rom_path:
+		push_error("ROM path is missing.")
 		return false
 
 	# Load the core (emulator)
@@ -47,19 +51,21 @@ func start_emulation(core_path: String, rom_path: String) -> bool:
 	current_rom = rom_path
 	print("Core and ROM loaded successfully.")
 
-	# Wait for SubViewport to render at least one frame
+	# Ensure SubViewport is ready
 	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	await get_tree().create_timer(0.1).timeout  # Delay ensures rendering starts
 
-	# Assign the SubViewport texture
-	var viewport_texture = sub_viewport.get_texture()
-	if viewport_texture:
-		texture_rect.texture = viewport_texture
-		print("SubViewport texture assigned successfully.")
-	else:
-		push_error("Error: SubViewport texture is not ready.")
+	# Wait for the SubViewport to initialize (up to 3 seconds)
+	var max_wait_time = 3.0  # Maximum wait time in seconds
+	var elapsed_time = 0.0
+	while not sub_viewport.get_texture() and elapsed_time < max_wait_time:
+		await get_tree().idle_frame  # Waits for the next frame
+		elapsed_time += get_process_delta_time()
+	if not sub_viewport.get_texture():
+		push_error("Error: SubViewport texture is not ready after waiting.")
 		return false
 
+	texture_rect.texture = sub_viewport.get_texture()
+	print("SubViewport texture assigned successfully.")
 	return true
 
 func _process(delta):
