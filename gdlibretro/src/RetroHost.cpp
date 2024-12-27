@@ -102,6 +102,7 @@ bool RetroHost::load_core(godot::String name) {
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
     this->core.handle = dlopen(lib_path.utf8().get_data(), RTLD_LAZY);
     if (this->core.handle == nullptr) {
+        godot::UtilityFunctions::printerr("[RetroHost] dlopen failed: ", dlerror());
         godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
         return false;
     }

@@ -1713,6 +1713,7 @@ CMakeFiles/LibRetroHost.dir/src/RegisterExtension.cpp.o: src/RegisterExtension.c
   extern/godot-cpp/gen/include/godot_cpp/variant/signal.hpp \
   extern/godot-cpp/gen/include/godot_cpp/variant/string.hpp \
   extern/godot-cpp/gen/include/godot_cpp/variant/string_name.hpp \
+  extern/godot-cpp/gen/include/godot_cpp/variant/utility_functions.hpp \
   extern/godot-cpp/gen/include/godot_cpp/variant/variant_size.hpp \
   extern/godot-cpp/include/godot_cpp/classes/ref.hpp \
   extern/godot-cpp/include/godot_cpp/classes/wrapped.hpp \

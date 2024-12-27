@@ -264,6 +264,7 @@ CMakeFiles/LibRetroHost.dir/src/RegisterExtension.cpp.o: \
  /usr/include/c++/14/bits/hashtable_policy.h \
  /usr/include/c++/14/bits/enable_special_members.h \
  /home/jay/gits/RetroQUEST/RetroQUEST/gdlibretro/extern/godot-cpp/gen/include/godot_cpp/classes/engine.hpp \
+ /home/jay/gits/RetroQUEST/RetroQUEST/gdlibretro/extern/godot-cpp/gen/include/godot_cpp/variant/utility_functions.hpp \
  /home/jay/gits/RetroQUEST/RetroQUEST/gdlibretro/src/RetroHost.hpp \
  /usr/include/c++/14/filesystem /usr/include/c++/14/bits/fs_fwd.h \
  /usr/include/c++/14/bits/chrono.h /usr/include/c++/14/ratio \

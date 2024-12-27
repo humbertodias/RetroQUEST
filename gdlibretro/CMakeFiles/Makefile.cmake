@@ -7,18 +7,14 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  ".git/HEAD"
-  ".git/refs/heads/master"
   "CMakeFiles/3.30.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.30.3/CMakeSystem.cmake"
   "CMakeFiles/VerifyGlobs.cmake"
   "CMakeFiles/cmake.verify_globs"
-  "CMakeFiles/git-data/grabRef.cmake"
   "CMakeLists.txt"
   "cmake/ClangFormat.cmake"
   "cmake/CompilerWarnings.cmake"
   "cmake/GetGitRevisionDescription.cmake"
-  "cmake/GetGitRevisionDescription.cmake.in"
   "cmake/GitVersionInfo.cmake"
   "cmake/ccache.cmake"
   "extern/CMakeLists.txt"
@@ -77,12 +73,6 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/git-data/HEAD"
-  "CMakeFiles/git-data/grabRef.cmake"
-  "CMakeFiles/git-data/head-ref"
-  "CMakeFiles/git-data/HEAD"
-  "CMakeFiles/git-data/grabRef.cmake"
-  "CMakeFiles/git-data/head-ref"
   "gen/Version.h"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"

@@ -30,16 +30,16 @@ namespace VersionInfo {
     //
     // It uses the form "<project name> <last tag>-<# commits since last tag>-<short commit hash>".
     // If there are no commits since the last tag, only the tag is shown.
-    constexpr std::string_view VERSION_STR = "LibRetroHost 7ebbf84";
+    constexpr std::string_view VERSION_STR = "LibRetroHost HEAD-HASH-NOTFOUND";
 
     // The version information as a string.
     // This is generated using the current git commit information.
     //
     // It uses the form "<last tag>-<# commits since last tag>-<short commit hash>".
     // If there are no commits since the last tag, only the tag is shown.
-    constexpr std::string_view VERSION_SHORT_STR = "7ebbf84";
+    constexpr std::string_view VERSION_SHORT_STR = "HEAD-HASH-NOTFOUND";
 
     // The full git SHA1 hash as a string.
     // This is generated using the current git commit information.
-    constexpr std::string_view GIT_SHA1_STR = "7ebbf840187f54466988c0b5b20524ad21ca1d58";
+    constexpr std::string_view GIT_SHA1_STR = "GITDIR-NOTFOUND";
 }

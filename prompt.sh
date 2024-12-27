@@ -33,10 +33,16 @@ done
 write ""
 write "My issue now is the following, can you help me to fix it?"
 write '
-I enter in the scene but the emulated game is not loaded, I just get this log:
-[RetroHost] Constructor
+When I load godot I get this crash:
 
-Maybe we should enhance the logging to understand what is actually happening
+ godot .
+
+================================================================
+handle_crash: Program crashed with signal 11
+Engine version: Godot Engine v4.2.2.rc2.mono.official (c61a68614e5b030a4a1e11abaa5a893b8017f78d)
+Dumping the backtrace. Please include this when reporting the bug to the project developer.
+[1] /lib/x86_64-linux-gnu/libc.so.6(+0x45250) [0x7ea94c445250] (??:0)
+-- END OF BACKTRACE --
+================================================================
+Annullato (core dump creato)
 '
-
-
