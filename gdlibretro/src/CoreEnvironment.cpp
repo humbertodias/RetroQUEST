@@ -62,13 +62,15 @@ std::vector<std::string> split(std::string s, std::string delimiter)
 }
 
 // Handles various core environment commands
-bool RetroHost::core_environment(unsigned command, void *data)
-{
+bool RetroHost::core_environment(unsigned command, void *data){
+
+    godot::UtilityFunctions::print("[RetroHost] core_environment called with command: ", command);
+
     switch (command)
     {
         case RETRO_ENVIRONMENT_GET_LOG_INTERFACE:
         {
-            godot::UtilityFunctions::print("[RetroHost] Core log interface set.");
+            godot::UtilityFunctions::print("[RetroHost] RETRO_ENVIRONMENT_GET_LOG_INTERFACE called.");
             struct retro_log_callback *cb = (struct retro_log_callback *)data;
             cb->log = core_log;
         }
@@ -85,6 +87,7 @@ bool RetroHost::core_environment(unsigned command, void *data)
         case RETRO_ENVIRONMENT_GET_VARIABLE:
         {
             auto var = (retro_variable *)data;
+            godot::UtilityFunctions::print("[RetroHost] RETRO_ENVIRONMENT_GET_VARIABLE called for key: ", var->key);
             return this->get_variable(var);
         }
         break;
@@ -158,8 +161,7 @@ bool RetroHost::core_environment(unsigned command, void *data)
 
         default:
         {
-            godot::UtilityFunctions::print("[RetroHost] Core environment command " + 
-                                           godot::String::num(command) + " not implemented.");
+            godot::UtilityFunctions::print("[RetroHost] Command ", command, " not handled explicitly.");
             return false;
         }
     }

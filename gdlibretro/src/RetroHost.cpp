@@ -79,32 +79,35 @@ RetroHost *RetroHost::get_singleton()
 
 bool RetroHost::load_core(godot::String name) {
     this->unload_core();
-    godot::UtilityFunctions::print("[RetroHost] Loading core \"", name, "\"");
+    godot::UtilityFunctions::print("[RetroHost] Starting load_core with name: ", name);
 
     godot::String lib_path;
     if (godot::OS::get_singleton()->has_feature("editor")) {
         this->cwd =
             godot::ProjectSettings::get_singleton()->globalize_path("res://") + "libretro-cores/";
         lib_path = cwd + name + ".dll"; // Editor path (Windows assumed default)
+        godot::UtilityFunctions::print("[RetroHost] Editor mode detected. Core path: ", lib_path);
     } else {
         this->cwd = godot::OS::get_singleton()->get_executable_path().get_base_dir();
         lib_path = cwd + "/" + name;
+        godot::UtilityFunctions::print("[RetroHost] Runtime mode detected. Core path: ", lib_path);
     }
-    godot::UtilityFunctions::print("[RetroHost] Resolved core path: ", lib_path);
 
 #ifdef PLATFORM_WINDOWS
     this->core.handle = LoadLibrary(lib_path.utf8().get_data());
     if (this->core.handle == NULL) {
-        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\"");
+            godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
         return false;
     }
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
     this->core.handle = dlopen(lib_path.utf8().get_data(), RTLD_LAZY);
     if (this->core.handle == nullptr) {
-        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\": ", GetLastErrorAsStr().c_str());
+        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
         return false;
     }
 #endif
+
+    godot::UtilityFunctions::print("[RetroHost] Core library loaded successfully.");
 
     // Load RetroArch symbols dynamically
     load_symbol_return_false_on_err(this->core.handle, this->core.retro_init, retro_init);
@@ -174,11 +177,13 @@ void RetroHost::unload_core()
     godot::UtilityFunctions::print("[RetroHost] Core unloaded successfully.");
 }
 
-void RetroHost::run()
-{
+void RetroHost::run(){
+
+    godot::UtilityFunctions::print("[RetroHost] Starting core run...");
+
     if (!this->core.initialized)
     {
-        godot::UtilityFunctions::printerr("[RetroHost] Core not initialized. Cannot run.");
+        godot::UtilityFunctions::printerr("[RetroHost] Cannot run. Core not initialized.");
         return;
     }
     this->core.retro_run();
