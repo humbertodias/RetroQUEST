@@ -23,10 +23,10 @@ func _ready():
 
 	var success = await loader.start_emulation(core_path, rom_path)  # Use await to call the coroutine
 	if success:
-		print("[main] Game started successfully.")
+		print("[main] Game started successfully")
 		start_emulation_loop()
 	else:
-		print("[main] Failed to start the game.")
+		print("[main] Failed to start the game")
 
 func start_emulation_loop():
 	"""

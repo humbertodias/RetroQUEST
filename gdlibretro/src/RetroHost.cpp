@@ -47,15 +47,23 @@ std::string GetLastErrorAsStr()
 
 RetroHost::RetroHost()
 {
-    godot::UtilityFunctions::print("[RetroHost] Constructor");
+    godot::UtilityFunctions::print("[RetroHost] Constructor called. Initializing singleton.");
     singleton = this;
     this->vfs.init_vfs_interface();
+
+    // Initialize core variables
+    this->core.handle = nullptr;
+    this->core.initialized = false;
+    this->frame_buffer.unref(); // Reset the Ref<godot::Image> properly
+    godot::UtilityFunctions::print("[RetroHost] Initialization complete.");
 }
 
 RetroHost::~RetroHost()
 {
-    godot::UtilityFunctions::print("[RetroHost] Destructor");
+    godot::UtilityFunctions::print("[RetroHost] Destructor called. Cleaning up resources.");
     this->unload_core();
+    singleton = nullptr;
+    godot::UtilityFunctions::print("[RetroHost] Resources cleaned up and singleton destroyed.");
 }
 
 RetroHost *RetroHost::singleton = nullptr;
@@ -77,15 +85,15 @@ RetroHost *RetroHost::get_singleton()
         }                                                                                           \
     } while (0)
 
-bool RetroHost::load_core(godot::String name) {
+bool RetroHost::load_core(godot::String name)
+{
     this->unload_core();
     godot::UtilityFunctions::print("[RetroHost] Starting load_core with name: ", name);
 
     godot::String lib_path;
     if (godot::OS::get_singleton()->has_feature("editor")) {
-        this->cwd =
-            godot::ProjectSettings::get_singleton()->globalize_path("res://") + "libretro-cores/";
-        lib_path = cwd + name + ".dll"; // Editor path (Windows assumed default)
+        this->cwd = godot::ProjectSettings::get_singleton()->globalize_path("res://") + "libretro-cores/";
+        lib_path = cwd + name;
         godot::UtilityFunctions::print("[RetroHost] Editor mode detected. Core path: ", lib_path);
     } else {
         this->cwd = godot::OS::get_singleton()->get_executable_path().get_base_dir();
@@ -96,14 +104,13 @@ bool RetroHost::load_core(godot::String name) {
 #ifdef PLATFORM_WINDOWS
     this->core.handle = LoadLibrary(lib_path.utf8().get_data());
     if (this->core.handle == NULL) {
-            godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
+        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
         return false;
     }
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
     this->core.handle = dlopen(lib_path.utf8().get_data(), RTLD_LAZY);
     if (this->core.handle == nullptr) {
-        godot::UtilityFunctions::printerr("[RetroHost] dlopen failed: ", dlerror());
-        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
+        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", dlerror());
         return false;
     }
 #endif
@@ -131,46 +138,25 @@ bool RetroHost::load_core(godot::String name) {
     this->core.retro_init();
     godot::UtilityFunctions::print("[RetroHost] Core initialized successfully.");
 
-    godot::UtilityFunctions::print("[RetroHost] Attempting to load game...");
-    if (!this->core.retro_load_game(nullptr)) {
-        godot::UtilityFunctions::printerr("[RetroHost] Failed to load game.");
-        return false;
-    }
-    godot::UtilityFunctions::print("[RetroHost] Game loaded successfully.");
-
-    struct retro_system_av_info av;
-    this->core.retro_get_system_av_info(&av);
-    godot::UtilityFunctions::print("[RetroHost] Retrieved system AV info.");
-
-    this->core_video_init(&av.geometry);
-    godot::UtilityFunctions::print("[RetroHost] Video initialized.");
-
-    this->core_audio_init(av);
-    godot::UtilityFunctions::print("[RetroHost] Audio initialized.");
-
     this->core.initialized = true;
-    godot::UtilityFunctions::print("[RetroHost] Core fully initialized and ready.");
     return true;
 }
 
 void RetroHost::unload_core()
 {
-    if (this->core.initialized)
-    {
+    if (this->core.initialized) {
         godot::UtilityFunctions::print("[RetroHost] Deinitializing core...");
         this->core.retro_deinit();
         this->core.initialized = false;
     }
 
 #ifdef PLATFORM_WINDOWS
-    if (this->core.handle != NULL)
-    {
+    if (this->core.handle != NULL) {
         FreeLibrary(this->core.handle);
         this->core.handle = NULL;
     }
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
-    if (this->core.handle != nullptr)
-    {
+    if (this->core.handle != nullptr) {
         dlclose(this->core.handle);
         this->core.handle = nullptr;
     }
@@ -178,17 +164,14 @@ void RetroHost::unload_core()
     godot::UtilityFunctions::print("[RetroHost] Core unloaded successfully.");
 }
 
-void RetroHost::run(){
-
-    godot::UtilityFunctions::print("[RetroHost] Starting core run...");
-
-    if (!this->core.initialized)
-    {
+void RetroHost::run()
+{
+    if (!this->core.initialized) {
         godot::UtilityFunctions::printerr("[RetroHost] Cannot run. Core not initialized.");
         return;
     }
+    godot::UtilityFunctions::print("[RetroHost] Running core...");
     this->core.retro_run();
-    godot::UtilityFunctions::print("[RetroHost] Core ran successfully.");
 }
 
 void RetroHost::_bind_methods()

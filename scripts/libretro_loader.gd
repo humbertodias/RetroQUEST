@@ -10,17 +10,26 @@ var current_rom : String = ""  # Initialize to an empty string
 func start_emulation(core_path: String, rom_path: String) -> bool:
 	print("[libretro_loader] Starting emulation with core: ", core_path, ", ROM: ", rom_path)
 
+	# Debug RetroHost access
+	print("[libretro_loader] RetroHost status: ", retro_host)
+
 	# Check if RetroHost is available
 	if not retro_host:
-		push_error("[libretro_loader] RetroHost singleton not found!")
+		var message = "[libretro_loader] RetroHost singleton not found!"
+		push_error(message)
+		print(message)
 		return false
 
 	if not core_path:
-		push_error("[libretro_loader] Core path is missing.")
+		var message = "[libretro_loader] Core path is missing."
+		push_error(message)
+		print(message)
 		return false
-	
+
 	if not rom_path:
-		push_error("[libretro_loader] ROM path is missing.")
+		var message = "[libretro_loader] ROM path is missing."
+		push_error(message)
+		print(message)
 		return false
 
 	# Load the core (via RetroHost)
@@ -100,26 +109,37 @@ func _process(delta):
 
 func _ready():
 	"""
-	Initializes the SubViewport and TextureRect.
+	Initializes the SubViewport and TextureRect and waits for RetroHost singleton.
 	"""
 	print("[libretro_loader] _ready: Initializing SubViewport and TextureRect.")
 	if sub_viewport and texture_rect:
 		print("[libretro_loader] SubViewport and TextureRect initialized successfully.")
 	else:
-		push_error("Error: SubViewport or TextureRect is missing.")
+		push_error("[libretro_loader] Error: SubViewport or TextureRect is missing.")
 		return
-
-	if not retro_host:
-		push_error("[libretro_loader] RetroHost singleton not found! Emulation cannot proceed.")
-		return
-	print("[libretro_loader] RetroHost singleton initialized successfully.")
 
 	# Ensure SubViewport always renders
 	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	print("[libretro_loader] SubViewport set to always update.")
 
-	# Use await to call the coroutine
-	var success = await start_emulation("res://cores/genesis_plus_gx_libretro.so", "res://roms/megadrive/Sonic")
+	print("[libretro_loader] _ready: Waiting for RetroHost singleton...")
+
+	while not Engine.get_singleton("RetroHost"):
+		print("[libretro_loader] Waiting for RetroHost...")
+		await get_tree().idle_frame
+
+	print("[libretro_loader] _ready: Wait ended")
+	
+	# Assign the RetroHost singleton after it's available
+	retro_host = Engine.get_singleton("RetroHost")
+	if retro_host:
+		print("[libretro_loader] RetroHost singleton initialized successfully.")
+	else:
+		push_error("[libretro_loader] Failed to find RetroHost singleton!")
+		return
+
+	# Proceed with starting emulation
+	var success = await start_emulation("res://cores/genesis_plus_gx_libretro.so", "res://roms/megadrive/Sonic the Hedgehog.bin")
 	if success:
 		print("[libretro_loader] Emulation started successfully.")
 	else:

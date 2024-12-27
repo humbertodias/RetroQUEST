@@ -33,16 +33,23 @@ done
 write ""
 write "My issue now is the following, can you help me to fix it?"
 write '
-When I load godot I get this crash:
+My issue is that I am not able to start the emulated game, I am getting the following error:
 
- godot .
+Godot Engine v4.3.stable.flathub.77dcf97d8 - https://godotengine.org
+OpenGL API 4.6 (Core Profile) Mesa 24.2.7 (git-3900828265) - Compatibility - Using Device: Intel - Mesa Intel(R) Graphics (ADL GT2)
 
-================================================================
-handle_crash: Program crashed with signal 11
-Engine version: Godot Engine v4.2.2.rc2.mono.official (c61a68614e5b030a4a1e11abaa5a893b8017f78d)
-Dumping the backtrace. Please include this when reporting the bug to the project developer.
-[1] /lib/x86_64-linux-gnu/libc.so.6(+0x45250) [0x7ea94c445250] (??:0)
--- END OF BACKTRACE --
-================================================================
-Annullato (core dump creato)
+[RetroHost] Initializing extension...
+[RetroHost] RetroHost class registered.
+[RetroHost] Constructor called. Initializing singleton.
+[RetroHost] Initialization complete.
+[RetroHost] Singleton registered successfully.
+[main] Entering _ready function
+[main] File res://cores/genesis_plus_gx_libretro.so exists
+[main] File res://roms/megadrive/Sonic the Hedgehog.bin exists
+[main] Core path: res://cores/genesis_plus_gx_libretro.so
+[main] ROM path: res://roms/megadrive/Sonic the Hedgehog.bin
+[libretro_loader] Starting emulation with core: res://cores/genesis_plus_gx_libretro.so, ROM: res://roms/megadrive/Sonic the Hedgehog.bin
+[libretro_loader] RetroHost status: <null>
+[libretro_loader] RetroHost singleton not found!
+[main] Failed to start the game
 '
