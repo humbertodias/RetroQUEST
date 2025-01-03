@@ -152,6 +152,7 @@ We aim to minimize reliance on traditional menus by integrating features directl
 - **Saving**: The bed is used for sleeping (to skip the day) or quick saving manually (taking a nap).  
 - **Quitting to Menu**: Opening and crossing the door saves the game and exits to the main menu.  
 - **Game Genie Cartridge**: Plug this into any console for advanced features like enabling cheats, toggling quick resume (save and load states), accessing Retro Achievements, fast forward, and toggling BIOS loading.
+- **Clock**: in sandbox mode you can change the in-game time by interacting with the clock.
 
 ### Can I change screen shaders?  
 Each TV in RetroQUEST comes with its own unique shader, emulating the look and feel of the original hardware. Changing the TV will also change the shader.  
