@@ -9,7 +9,7 @@
 > Assets are just placeholders and not final, every asset you see now will be discarded and redone.
 > This repo is pretty much a dump, I will clean it up later, sorry.
 
-**RetroQUEST** is an immersive gaming experience that takes you through the history of video game consoles, from the earliest systems to the dawn of the 21st century. Designed in **GODOT 4.3** primarily for **Meta Quest 3**, it is also fully playable on **Linux** in a non-VR mode. RetroQUEST is a standalone application, providing a unique way to explore gaming history, manage consoles, and enjoy retro games.
+**RetroQUEST** is an immersive gaming experience that takes you through the history of video game consoles, from the earliest systems to the dawn of the 21st century. Designed in **GODOT 4.3** primarily for **Meta Quest 3**, it is also fully playable on **Linux** in a non-VR mode. RetroQUEST is a standalone application, providing a unique way to explore gaming history, manage consoles, and enjoy retro games as a Story Mode is available along a Sandbox Mode. 
 
 ## Features
 
@@ -91,3 +91,72 @@ In order to do so just run:
 
 ## How to test RetroQUEST on Meta Quest 3
 TBD
+
+## FAQ
+
+### Can I play RetroQUEST now?  
+At the moment, RetroQUEST is in a pre-alpha state. Emulation is not functional yet. You can explore a placeholder bedroom environment, and if you're familiar with Godot, you can load the project and test its current features. 
+
+### Here in the FAQ I can see a lot of features, where are they?  
+The features mentioned in the FAQ are part of our vision for RetroQUEST. They will be implemented gradually over time as the project evolves. Stay tuned for updates and feel free to contribute if you want to see a specific feature sooner!
+
+### What happens if I don't have the suggested games in my library?  
+In Story Mode, these games will appear in the storyline but will be marked as sold-out when viewed in the in-game catalog. The story will proceed without requiring you to have these games.  
+
+### Until which system can I play?  
+You can play any system supported by RetroArch that is compatible with the Meta Quest hardware, up to the PlayStation Portable (PSP).  
+On PC, PCVR, or other platforms, this limitation may be removed in future updates.  
+
+### Can I play standalone emulators such as Dolphin or Duckstation?  
+Currently, we don't plan to support standalone emulators due to technical challenges.  
+However, contributions are welcome if you know how to integrate them!  
+
+### What is the difference between Story Mode and Sandbox? Am I forced to play the Story Mode to unlock Sandbox?  
+- **Story Mode**: Experience the evolution of gaming, unlocking systems and games progressively by advancing through the storyline. Systems and games are acquired via an in-game catalog using currency earned in-game.  
+- **Sandbox Mode**: All systems are unlocked from the start, allowing you to explore "out of timeline" gameplay freely.  
+  While everything is unlocked in Sandbox, Story Mode progress may unlock unique furniture or graphical customizations.  
+
+### About in-game currency  
+#### Do I need to buy in-game currency with real money?  
+No. You earn in-game currency purely through gameplay. RetroQUEST is free and open source. If you'd like to support the project, you can donate, but donations don't provide in-game benefits.  
+
+### Do I need to own the games before acquiring them via the catalog?  
+Yes. The catalog will display games you’ve placed in your ROMs folder, along with some story-related games. If a game is not in your folder, it won’t be available in the catalog.  
+
+### Why the name RetroQUEST if the game is multi-platform?  
+The name **RetroQUEST** reflects the core gaming experience on Meta Quest 3, which is the primary VR device used in development. "QUEST" also symbolizes the player's journey through the history of gaming. This differentiates RetroQUEST from other emulation frontends, emphasizing its narrative-driven Story Mode.  
+
+### What can I do if I don't own any games or old consoles?  
+Unfortunately, RetroQUEST is designed to enhance the experience of retro game emulation, so you'll need to provide your own games. This could be a great opportunity to start collecting retro titles! Check local thrift stores or legal sources for retro games.  
+
+### Is the Story Mode aimed to deliver a didactic experience?  
+Yes, partially. While the storyline stays as true to gaming history as possible, any fictional elements will be clearly marked to ensure users are aware of historical deviations. The goal is to provide an engaging and educational experience for gamers of all backgrounds.
+
+### I developed a retro game that can be emulated. Can I ship it with RetroQUEST?  
+Please get in touch! We’d love to discuss this possibility. However, keep in mind that RetroQUEST operates without any monetary transactions. By including your game, you would be distributing it for free and under the terms of RetroQUEST's license.
+
+### Can I use the TV to play VHS?  
+Kind of, yes! We plan to add a feature that allows you to play or stream custom video files on the in-game TV.  
+
+### What about the radio or walkman?  
+Similarly, we aim to support audio files or streams for the in-game radio and walkman.
+
+### Where is my inventory and options menu?  
+We aim to minimize reliance on traditional menus by integrating features directly into the game environment. Here's how some key functions are handled:  
+
+- **Inventory**: Your room's chest acts as your inventory, storing items like cartridges, systems, consoles, and furniture that can be placed in the environment.  
+- **Music Controls**: The radio doubles as the music volume control and play/mute toggle.  
+- **Subtitles**: The TV remote can be used to turn subtitles on or off.  
+- **Shop**: The in-game shop is represented by magazines delivered to your door.  
+- **Lighting**: Room lights can be controlled with a remote or the in-room switch.  
+- **Saving**: The bed is used for sleeping (to skip the day) or quick saving manually (taking a nap).  
+- **Quitting to Menu**: Opening and crossing the door saves the game and exits to the main menu.  
+- **Game Genie Cartridge**: Plug this into any console for advanced features like enabling cheats, toggling quick resume (save and load states), accessing Retro Achievements, fast forward, and toggling BIOS loading.
+- **Clock**: in sandbox mode you can change the in-game time by interacting with the clock.
+
+### Can I change screen shaders?  
+Each TV in RetroQUEST comes with its own unique shader, emulating the look and feel of the original hardware. Changing the TV will also change the shader.  
+
+Additionally:  
+- **Modern TVs**: A modern TV is available with no shader and upscaling for a clean display.  
+- **Handheld Consoles**: Handheld systems include their "modified" versions featuring aftermarket shells and LCD screens for improved clarity and aesthetics.
