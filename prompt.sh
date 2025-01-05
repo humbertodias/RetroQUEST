@@ -30,6 +30,9 @@ for file in $files; do
     fi
 done
 
+write "--- logs/gdextension.log ---"
+write "$(cat logs/gdextension.log)"
+
 write ""
 write "My issue now is the following, can you help me to fix it?"
 write '
@@ -42,14 +45,11 @@ OpenGL API 4.6 (Core Profile) Mesa 24.2.7 (git-3900828265) - Compatibility - Usi
 [RetroHost] RetroHost class registered.
 [RetroHost] Constructor called. Initializing singleton.
 [RetroHost] Initialization complete.
+[RetroHost] Singleton created successfully.
 [RetroHost] Singleton registered successfully.
-[main] Entering _ready function
-[main] File res://cores/genesis_plus_gx_libretro.so exists
-[main] File res://roms/megadrive/Sonic the Hedgehog.bin exists
-[main] Core path: res://cores/genesis_plus_gx_libretro.so
-[main] ROM path: res://roms/megadrive/Sonic the Hedgehog.bin
-[libretro_loader] Starting emulation with core: res://cores/genesis_plus_gx_libretro.so, ROM: res://roms/megadrive/Sonic the Hedgehog.bin
-[libretro_loader] RetroHost status: <null>
-[libretro_loader] RetroHost singleton not found!
-[main] Failed to start the game
+--- Debugging process stopped ---
+
+Albeit I added the suggested edits the game still crashes, so it might be something previous of those log entries
 '
+
+echo "Prompt generated in prompt.md"
