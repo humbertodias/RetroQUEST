@@ -2,9 +2,10 @@
 .godot/
 /android/
 roms
-cores
+libretro-cores
 #gdlibretro
 #godot-cpp
 .sconsign.dblite
 prompt.md
 *.import
+logs
