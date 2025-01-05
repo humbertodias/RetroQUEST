@@ -87,35 +87,48 @@ RetroHost *RetroHost::get_singleton()
 
 bool RetroHost::load_core(godot::String name)
 {
+    // Unload any previously loaded core
     this->unload_core();
     godot::UtilityFunctions::print("[RetroHost] Starting load_core with name: ", name);
 
+    // Ensure the core name has the correct .so extension
+    if (!name.ends_with(".so")) {
+        name += ".so";
+        godot::UtilityFunctions::print("[RetroHost] Adding .so extension to core name. Updated name: ", name);
+    }
+
+    // Construct the core library path
     godot::String lib_path;
     if (godot::OS::get_singleton()->has_feature("editor")) {
+        // Editor mode: Use globalized path for the core
         this->cwd = godot::ProjectSettings::get_singleton()->globalize_path("res://") + "libretro-cores/";
         lib_path = cwd + name;
         godot::UtilityFunctions::print("[RetroHost] Editor mode detected. Core path: ", lib_path);
     } else {
+        // Runtime mode: Use the executable's directory
         this->cwd = godot::OS::get_singleton()->get_executable_path().get_base_dir();
         lib_path = cwd + "/" + name;
         godot::UtilityFunctions::print("[RetroHost] Runtime mode detected. Core path: ", lib_path);
     }
 
+    // Attempt to load the core library
 #ifdef PLATFORM_WINDOWS
     this->core.handle = LoadLibrary(lib_path.utf8().get_data());
     if (this->core.handle == NULL) {
-        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", GetLastErrorAsStr().c_str());
+        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core: ", lib_path, 
+                                          ". Error: ", GetLastErrorAsStr());
         return false;
     }
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
     this->core.handle = dlopen(lib_path.utf8().get_data(), RTLD_LAZY);
     if (this->core.handle == nullptr) {
-        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core \"", lib_path, "\". Error: ", dlerror());
+        godot::UtilityFunctions::printerr("[RetroHost] Failed to load core: ", lib_path, 
+                                          ". Error: ", dlerror());
         return false;
     }
 #endif
 
-    godot::UtilityFunctions::print("[RetroHost] Core library loaded successfully.");
+    godot::UtilityFunctions::print("[RetroHost] Core library loaded successfully: ", lib_path);
 
     // Load RetroArch symbols dynamically
     load_symbol_return_false_on_err(this->core.handle, this->core.retro_init, retro_init);
@@ -131,8 +144,10 @@ bool RetroHost::load_core(godot::String name)
 
     godot::UtilityFunctions::print("[RetroHost] All symbols loaded successfully.");
 
+    // Initialize core variables and RetroArch core
     this->core_name = name;
     this->load_core_variables();
+    godot::UtilityFunctions::print("[RetroHost] Core variables loaded.");
 
     godot::UtilityFunctions::print("[RetroHost] Initializing core...");
     this->core.retro_init();
@@ -179,4 +194,29 @@ void RetroHost::_bind_methods()
     godot::ClassDB::bind_method(godot::D_METHOD("load_core", "name"), &RetroHost::load_core);
     godot::ClassDB::bind_method(godot::D_METHOD("unload_core"), &RetroHost::unload_core);
     godot::ClassDB::bind_method(godot::D_METHOD("run"), &RetroHost::run);
+    godot::ClassDB::bind_method(godot::D_METHOD("load_game", "game_info"), &RetroHost::load_game);
+}
+
+bool RetroHost::load_game(const godot::Dictionary &game_info) {
+    if (!this->core.initialized) {
+        godot::UtilityFunctions::printerr("[RetroHost] Cannot load game. Core not initialized.");
+        return false;
+    }
+
+    struct retro_game_info game;
+    memset(&game, 0, sizeof(game));
+
+    // Get data and size from the Dictionary
+    godot::PackedByteArray data = game_info["data"];
+    game.data = data.ptr();
+    game.size = data.size();
+
+    godot::UtilityFunctions::print("[RetroHost] Loading game...");
+    if (!this->core.retro_load_game(&game)) {
+        godot::UtilityFunctions::printerr("[RetroHost] Failed to load game.");
+        return false;
+    }
+
+    godot::UtilityFunctions::print("[RetroHost] Game loaded successfully.");
+    return true;
 }

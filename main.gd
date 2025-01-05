@@ -1,38 +1,34 @@
-extends Node
-
-@onready var loader = preload("res://scripts/libretro_loader.gd").new()
+extends Node3D
 
 func _ready():
+	"""
+	Main entry point for the application.
+	"""
 	print("[main] Entering _ready function")
-	var core_path = "res://cores/genesis_plus_gx_libretro.so"  # Replace with your actual core path
-	if not FileAccess.file_exists(core_path):
-		push_error("Core not found at: " + core_path)
-		return false
-	else:
-		print("[main] File ", core_path," exists")
+	if not RetroHost:
+		push_error("[main] RetroHost singleton not found!")
+		return
 
-	var rom_path = "res://roms/megadrive/Sonic the Hedgehog.bin"  # Replace with your actual ROM path
-	if not FileAccess.file_exists(rom_path):
-		push_error("[main] Rom not found at: " + rom_path)
-		return false
-	else:
-		print("[main] File ", rom_path," exists")
+	var rom_path = "res://roms/megadrive/Sonic the Hedgehog.bin"
+	var core_path = "genesis_plus_gx_libretro"
 
-	print("[main] Core path: ", core_path)
-	print("[main] ROM path: ", rom_path)
-
-	var success = await loader.start_emulation(core_path, rom_path)  # Use await to call the coroutine
+	print("[main] Starting emulation with core: ", core_path, ", ROM: ", rom_path)
+	var success = RetroHost.load_core(core_path)
 	if success:
-		print("[main] Game started successfully")
-		start_emulation_loop()
+		print("[main] Core loaded successfully.")
 	else:
-		print("[main] Failed to start the game")
+		print("[main] Failed to load core.")
+		return
 
-func start_emulation_loop():
-	"""
-	Continuously runs the emulation in the `_process` callback.
-	"""
-	set_process(true)
+	var rom_file = FileAccess.open(rom_path, FileAccess.READ)
+	if not rom_file:
+		print("[main] Failed to open ROM file.")
+		return
 
-func _process(delta):
-	loader._process(delta)  # Delegate the frame updates to the loader
+	var rom_data = rom_file.get_buffer(rom_file.get_length())
+	rom_file.close()
+
+	if RetroHost.load_game(rom_data):
+		print("[main] ROM loaded successfully.")
+	else:
+		print("[main] Failed to load ROM.")

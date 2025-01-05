@@ -1824,6 +1824,7 @@ CMakeFiles/LibRetroHost.dir/src/RegisterExtension.cpp.o: src/RegisterExtension.c
   /usr/include/c++/14/bits/fs_fwd.h \
   /usr/include/c++/14/bits/fs_ops.h \
   /usr/include/c++/14/bits/fs_path.h \
+  /usr/include/c++/14/bits/fstream.tcc \
   /usr/include/c++/14/bits/functexcept.h \
   /usr/include/c++/14/bits/functional_hash.h \
   /usr/include/c++/14/bits/gslice.h \
@@ -1932,6 +1933,7 @@ CMakeFiles/LibRetroHost.dir/src/RegisterExtension.cpp.o: src/RegisterExtension.c
   /usr/include/c++/14/ext/string_conversions.h \
   /usr/include/c++/14/ext/type_traits.h \
   /usr/include/c++/14/filesystem \
+  /usr/include/c++/14/fstream \
   /usr/include/c++/14/initializer_list \
   /usr/include/c++/14/iomanip \
   /usr/include/c++/14/ios \
@@ -2079,8 +2081,10 @@ CMakeFiles/LibRetroHost.dir/src/RegisterExtension.cpp.o: src/RegisterExtension.c
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/atomic_word.h \
+  /usr/include/x86_64-linux-gnu/c++/14/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/14/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/ctype_base.h \

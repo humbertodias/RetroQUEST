@@ -355,4 +355,8 @@ CMakeFiles/LibRetroHost.dir/src/RegisterExtension.cpp.o: \
  /home/jay/gits/RetroQUEST/RetroQUEST/gdlibretro/extern/yaml-cpp/include/yaml-cpp/node/parse.h \
  /home/jay/gits/RetroQUEST/RetroQUEST/gdlibretro/extern/yaml-cpp/include/yaml-cpp/node/emit.h \
  /usr/include/dlfcn.h /usr/include/x86_64-linux-gnu/bits/dlfcn.h \
- /usr/include/x86_64-linux-gnu/bits/dl_find_object.h
+ /usr/include/x86_64-linux-gnu/bits/dl_find_object.h \
+ /usr/include/c++/14/fstream \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/c++io.h \
+ /usr/include/c++/14/bits/fstream.tcc

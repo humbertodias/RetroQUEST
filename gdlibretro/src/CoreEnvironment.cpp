@@ -149,7 +149,7 @@ bool RetroHost::core_environment(unsigned command, void *data){
         case RETRO_ENVIRONMENT_GET_LIBRETRO_PATH:
         {
             godot::UtilityFunctions::print("[RetroHost] Core requested path");
-            *(const char **)data = this->cwd.trim_suffix("/").utf8().get_data();
+            *(const char **)data = this->cwd.utf8().get_data();
             return true;
         }
 

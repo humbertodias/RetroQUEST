@@ -34,6 +34,7 @@ public:
     void unload_core();
     void run();
     void forwarded_input(const godot::Ref<godot::InputEvent> &event);
+    bool load_game(const godot::Dictionary &game_info);
 
 private:
     static RetroHost *singleton;

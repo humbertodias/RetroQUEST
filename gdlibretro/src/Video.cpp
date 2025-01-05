@@ -4,6 +4,12 @@
 
 void RetroHost::core_video_init(const struct retro_game_geometry *geometry)
 {
+
+    if (!frame_buffer.is_valid()) {
+        godot::UtilityFunctions::printerr("[RetroHost] Framebuffer initialization failed.");
+        return;
+    }
+
     godot::UtilityFunctions::print("[RetroHost] Video init ", geometry->base_width, " x ",
                                     geometry->base_height);
     this->frame_buffer = godot::Image::create(geometry->base_width, geometry->base_height, false,

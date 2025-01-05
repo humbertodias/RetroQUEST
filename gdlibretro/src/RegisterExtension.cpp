@@ -1,12 +1,11 @@
 #include "gdextension_interface.h"
-
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/core/defs.hpp"
 #include "godot_cpp/godot.hpp"
 #include "godot_cpp/classes/engine.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
-
 #include "RetroHost.hpp"
+#include <fstream>
 
 // Singleton instance pointer
 static RetroHost *retro_host_singleton = nullptr;
@@ -65,13 +64,23 @@ extern "C" {
         GDExtensionClassLibraryPtr p_library,
         GDExtensionInitialization *r_initialization) {
         
+        std::ofstream log_file("logs/gdextension.log", std::ios::app);
+        log_file << "[GDExtensionInit] Initializing GDExtension..." << std::endl;
+        
         godot::GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
-        // Register the initializer and terminator functions
         init_obj.register_initializer(initialize_extension);
-        init_obj.register_terminator(uninitialize_extension);
-        init_obj.set_minimum_library_initialization_level(godot::MODULE_INITIALIZATION_LEVEL_SCENE);
+        log_file << "[GDExtensionInit] Registered initializer." << std::endl;
 
-        return init_obj.init();
+        init_obj.register_terminator(uninitialize_extension);
+        log_file << "[GDExtensionInit] Registered terminator." << std::endl;
+
+        init_obj.set_minimum_library_initialization_level(godot::MODULE_INITIALIZATION_LEVEL_SCENE);
+        log_file << "[GDExtensionInit] Set minimum initialization level." << std::endl;
+
+        GDExtensionBool result = init_obj.init();
+        log_file << "[GDExtensionInit] Initialization result: " << (result ? "success" : "failure") << std::endl;
+
+        return result;
     }
 }
