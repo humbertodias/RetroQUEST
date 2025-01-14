@@ -141,6 +141,7 @@ bool RetroHost::load_core(godot::String name)
     load_symbol_return_false_on_err(this->core.handle, this->core.retro_run, retro_run);
     load_symbol_return_false_on_err(this->core.handle, this->core.retro_load_game, retro_load_game);
     load_symbol_return_false_on_err(this->core.handle, this->core.retro_unload_game, retro_unload_game);
+    load_symbol_return_false_on_err(this->core.handle, this->core.retro_keyboard_event_callback, retro_keyboard_event_callback);
 
     godot::UtilityFunctions::print("[RetroHost] All symbols loaded successfully.");
 

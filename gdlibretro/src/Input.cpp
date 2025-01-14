@@ -53,9 +53,12 @@ void RetroHost::forwarded_input( const godot::Ref<godot::InputEvent> &event )
         if(retro_key > RETROK_LAST)
             return;
 
-        this->core.retro_keyboard_event_callback( key_event->is_pressed(), retro_key,
-                                                  0, modifiers );
-        
+        if (this->core.retro_keyboard_event_callback) {
+            this->core.retro_keyboard_event_callback(key_event->is_pressed(), retro_key, 0, modifiers);
+        } else {
+            godot::UtilityFunctions::printerr("[RetroHost] retro_keyboard_event_callback is not set.");
+        }
+
         keyboard_state[retro_key] = key_event->is_pressed();
     }
 }

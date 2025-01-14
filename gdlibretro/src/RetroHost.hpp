@@ -116,7 +116,7 @@ private:
         bool (*retro_load_game)(const struct retro_game_info *game);
         void (*retro_unload_game)(void);
 
-        retro_keyboard_event_t retro_keyboard_event_callback;
+        retro_keyboard_event_t retro_keyboard_event_callback = nullptr;
     } core;
 
 protected:
