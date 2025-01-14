@@ -75,7 +75,7 @@ We need passionate individuals to help the development of RetroQUEST, here’s w
 # Development notes
 
 ## Compiling gdlibretro
-RetroQUEST uses a customized version of the [gdlibretro](https://github.com/gabrielmedici/gdlibretro) godot library (writtein in C++) to load libretro cores in Godot directly.
+RetroQUEST uses a customized version of the [gdlibretro](https://github.com/gabrielmedici/gdlibretro) godot library (written in C++) to load libretro cores in Godot directly.
 The project provides the library already compiled and even the sources in case the end user wants to edit and compile its own version.
 
 In order to do so just run:
