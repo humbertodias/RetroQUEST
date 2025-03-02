@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up dependencies
+        run: sudo apt update -y && apt install -y build-essential cmake python3
+
+      - name: Continuous Integration
+        run: ./build_gdlibretro.sh
