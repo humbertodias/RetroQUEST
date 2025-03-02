@@ -4,13 +4,21 @@
 
 # Disabled as now we are editing our own "fork"of libretro
 #git clone https://github.com/gabrielmedici/gdlibretro
-ARCH=$(uname -m)
 OS=$(uname -s)
+ARCH=$(uname -m)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+echo "OS: ${OS}"
+echo "ARCH: ${ARCH}"
+echo "SCRIPT_DIR: ${SCRIPT_DIR}"
+
 cd gdlibretro
 git submodule update --init --recursive && \
-cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLINUX" -Bbuild && \
+cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLinux" -Bbuild && \
 cmake --build build && \
-cd - && \
-mv -fv "gdlibretro/build/LibRetroHost/lib/${OS}-${ARCH}/libLibRetroHost*" "addons" && \
-rm -rf "gdlibretro/build" && \
-zip -r -9 gdlibretro-${OS}-${ARCH}.zip addons/libLibRetroHost*
+cd "${SCRIPT_DIR}/gdlibretro" && \
+pwd && \
+ls -la build/LibRetroHost/lib/${OS}-${ARCH} && \
+mv -fv "build/LibRetroHost/lib/${OS}-${ARCH}/libLibRetroHost-d.so" "addons/" && \
+rm -rf build && \
+
+zip -r -9 gdlibretro-${OS}-${ARCH}.zip addons
