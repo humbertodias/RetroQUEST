@@ -11,6 +11,6 @@ git submodule update --init --recursive && \
 cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLINUX" -Bbuild && \
 cmake --build build && \
 cd - && \
-mv -fv "gdlibretro/build/LibRetroHost/lib/${OS}-${ARCH}/libLibRetroHost-d.*" "addons" && \
+mv -fv "gdlibretro/build/LibRetroHost/lib/${OS}-${ARCH}/libLibRetroHost*" "addons" && \
 rm -rf "gdlibretro/build" && \
 zip -r -9 gdlibretro-${OS}-${ARCH}.zip addons/libLibRetroHost*
