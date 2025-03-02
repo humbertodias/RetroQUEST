@@ -1,3 +1,5 @@
+[![CI](https://github.com/humbertodias/RetroQUEST/actions/workflows/ci.yml/badge.svg)](https://github.com/humbertodias/RetroQUEST/actions/workflows/ci.yml)
+[![CD](https://github.com/humbertodias/RetroQUEST/actions/workflows/cd.yml/badge.svg)](https://github.com/humbertodias/RetroQUEST/actions/workflows/cd.yml)
 <p float="center">
     <img src="https://github.com/XargonWan/RetroQUEST/blob/main/res/RetroQUEST_Logo.png?raw=true" alt="RetroQUEST logo" width="600"/>
 </p>
