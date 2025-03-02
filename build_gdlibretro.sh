@@ -10,7 +10,7 @@ set -e  # Exit on error
 OS=$(uname -s)
 ARCH=$(uname -m)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BUILD_DIR="gdlibretro/build"
+BUILD_DIR="build"
 LIB_PATH="${BUILD_DIR}/LibRetroHost/lib/${OS}-${ARCH}"
 OUTPUT_ZIP="gdlibretro-${OS}-${ARCH}.zip"
 
@@ -26,6 +26,8 @@ mv -fv "${LIB_PATH}/libLibRetroHost"* "${SCRIPT_DIR}/addons/"
 
 # Clean up and zip
 rm -rf "${BUILD_DIR}"
+
+cd "${SCRIPT_DIR}"
 zip -r -9 "${OUTPUT_ZIP}" addons
 
 echo "Build complete: ${OUTPUT_ZIP}"
