@@ -5,6 +5,6 @@ build
 vicerc*
 *.exe
 *.pck
-gdlibretro/CMakeFiles/Progress
 
 !dosbox_pure_libretro.dll
+build
