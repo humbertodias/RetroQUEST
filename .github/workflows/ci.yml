@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up dependencies
-        run: sudo apt update -y && sudo apt install -y build-essential cmake python3
+      - name: Install dependencies
+        run: sudo apt update -y && sudo apt install -y build-essential cmake python3 zip
 
-      - name: Continuous Integration
+      - name: Build
         run: ./build_gdlibretro.sh

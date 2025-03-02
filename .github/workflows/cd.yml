@@ -1,0 +1,59 @@
+name: CD
+
+on:
+  release:
+    types: [ created ]
+
+defaults:
+  run:
+    shell: bash
+
+# required for upload
+permissions:
+  contents: write
+
+jobs:
+
+  Linux:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [ ubuntu-24.04, ubuntu-24.04-arm ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt update -y && sudo apt install -y build-essential cmake python3 zip
+
+      - name: Build
+        run: ./build_gdlibretro.sh
+        
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            *.zip
+
+  MacOS:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [ macos-latest, macos-13 ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: brew update && brew install cmake python zip
+
+      - name: Build
+        run: ./build_gdlibretro.sh
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            *.zip            
