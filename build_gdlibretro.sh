@@ -4,21 +4,28 @@
 
 # Disabled as now we are editing our own "fork"of libretro
 #git clone https://github.com/gabrielmedici/gdlibretro
+
+set -e  # Exit on error
+
 OS=$(uname -s)
 ARCH=$(uname -m)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-echo "OS: ${OS}"
-echo "ARCH: ${ARCH}"
-echo "SCRIPT_DIR: ${SCRIPT_DIR}"
+BUILD_DIR="gdlibretro/build"
+LIB_PATH="${BUILD_DIR}/LibRetroHost/lib/${OS}-${ARCH}"
+OUTPUT_ZIP="gdlibretro-${OS}-${ARCH}.zip"
+
+echo "Building for ${OS}-${ARCH}"
 
 cd gdlibretro
-git submodule update --init --recursive && \
-cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLinux" -Bbuild && \
-cmake --build build && \
-cd "${SCRIPT_DIR}/gdlibretro" && \
-pwd && \
-ls -la build/LibRetroHost/lib/${OS}-${ARCH} && \
-mv -fv "build/LibRetroHost/lib/${OS}-${ARCH}/libLibRetroHost-d.so" "addons/" && \
-rm -rf build && \
+git submodule update --init --recursive
+cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLinux" -B "${BUILD_DIR}"
+cmake --build "${BUILD_DIR}"
 
-zip -r -9 gdlibretro-${OS}-${ARCH}.zip addons
+# Move built files
+mv -fv "${LIB_PATH}/libLibRetroHost"* "${SCRIPT_DIR}/addons/"
+
+# Clean up and zip
+rm -rf "${BUILD_DIR}"
+zip -r -9 "${OUTPUT_ZIP}" addons
+
+echo "Build complete: ${OUTPUT_ZIP}"
