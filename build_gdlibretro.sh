@@ -28,6 +28,6 @@ mv -fv "${LIB_PATH}/libLibRetroHost"* "${SCRIPT_DIR}/addons/"
 rm -rf "${BUILD_DIR}"
 
 cd "${SCRIPT_DIR}"
-zip -r -9 "${OUTPUT_ZIP}" addons
+zip -r -9 "${OUTPUT_ZIP}" addons/*LibRetroHost*
 
 echo "Build complete: ${OUTPUT_ZIP}"
