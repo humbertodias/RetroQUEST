@@ -10,7 +10,10 @@ void core_log(enum retro_log_level level, const char *fmt, ...)
     va_list va;
 
     va_start(va, fmt);
-    vsnprintf(buffer, sizeof(buffer), fmt, va);
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wformat-nonliteral"
+        vsnprintf(buffer, sizeof(buffer), fmt, va);
+    #pragma clang diagnostic pop
     va_end(va);
 
     godot::UtilityFunctions::print("[RetroHost Loaded CORE][" +
