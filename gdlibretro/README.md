@@ -1,4 +1,4 @@
-Uhm, aksually, youre supposed to use scons to build gdextension projects...\
+Uhm, usually, you're supposed to use scons to build gdextension projects...\
 I. don't. care.\
 For all i know scons sucks ass. I couldn't even build the example gdext project.\
 You'll have to deal with CMake. at least it works
@@ -26,7 +26,7 @@ You'll have to deal with CMake. at least it works
 
 # Changing the core
 - Put the core you want to launch inside the "libretro-cores" folder on the godot project directory
-- Modifiy the argument on node3d.gd function call of RetroHost.load_core to the name of the core dll **without the .dll**
+- Modify the argument on node3d.gd function call of RetroHost.load_core to the name of the core dll **without the .dll**
 
 # Exported projects
 It should work with exported projects since outside the editor it loads dlls the windows way ([first on the executable directory, then on the system directory and so on](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order))\
