@@ -63,3 +63,31 @@ jobs:
         with:
           files: |
             *.zip            
+
+  Windows:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [ windows-latest ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: choco install zip
+
+      - name: Build
+        run: |
+            cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -B build
+            cmake --build build
+            dir build
+
+      - name: Compress
+        run: zip -r -9 "gdlibretro-${{ runner.os }}-${{ runner.arch }}.zip" addons/LibRetroHost.gdextension gdlibretro/build/LibRetroHost/lib/Windows-AMD64/Debug/LibRetroHost-d.dll
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            *.zip            
