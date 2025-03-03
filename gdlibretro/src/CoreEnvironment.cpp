@@ -1,6 +1,7 @@
 #include "RetroHost.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
 #include <cstdarg> // Required for va_start and va_end
+#include <sstream>
 
 // Logging function for the core
 void core_log(enum retro_log_level level, const char *fmt, ...)
