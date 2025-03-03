@@ -5,19 +5,28 @@
 // Logging function for the core
 void core_log(enum retro_log_level level, const char *fmt, ...)
 {
-    char buffer[4096] = {0};
     static const char *levelstr[] = {"DEBUG", "INFO", "WARN", "ERROR"};
-    va_list va;
 
-    va_start(va, fmt);
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wformat-nonliteral"
-        vsnprintf(buffer, sizeof(buffer), fmt, va);
-    #pragma clang diagnostic pop
-    va_end(va);
+    std::ostringstream oss;
+    oss << "[RetroHost Loaded CORE][" << levelstr[level - 1] << "] ";
 
-    godot::UtilityFunctions::print("[RetroHost Loaded CORE][" +
-                                    godot::String(levelstr[level - 1]) + "] " + buffer);
+    va_list args;
+    va_start(args, fmt);
+
+    for (; *fmt; ++fmt) {
+        if (*fmt == '%' && *(fmt + 1)) {
+            ++fmt;
+            if (*fmt == 'd') oss << va_arg(args, int);
+            else if (*fmt == 's') oss << va_arg(args, const char *);
+            else if (*fmt == 'f') oss << va_arg(args, double);
+            else oss << '%' << *fmt;
+        } else {
+            oss << *fmt;
+        }
+    }
+
+    va_end(args);
+    godot::UtilityFunctions::print(godot::String(oss.str().c_str()));
 }
 
 // Retrieves a core variable

@@ -41,7 +41,7 @@ std::string GetLastErrorAsStr()
     LocalFree(messageBuffer);
 
     return message;
-#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID) || defined(PLATFORM_MACOS)
     return dlerror(); // Linux and Android use dlerror for error reporting.
 #else
     return "Error information not available on this platform";
@@ -94,11 +94,19 @@ bool RetroHost::load_core(godot::String name)
     this->unload_core();
     godot::UtilityFunctions::print("[RetroHost] Starting load_core with name: ", name);
 
-    // Ensure the core name has the correct .so extension
-    if (!name.ends_with(".so")) {
-        name += ".so";
-        godot::UtilityFunctions::print("[RetroHost] Adding .so extension to core name. Updated name: ", name);
-    }
+    #if defined(PLATFORM_MACOS)
+        // Ensure the core name has the correct .dylib extension
+        if (!name.ends_with(".dylib")) {
+            name += ".dylib";
+            godot::UtilityFunctions::print("[RetroHost] Adding .dylib extension to core name. Updated name: ", name);
+        }
+    #else
+        // Ensure the core name has the correct .so extension
+        if (!name.ends_with(".so")) {
+            name += ".so";
+            godot::UtilityFunctions::print("[RetroHost] Adding .so extension to core name. Updated name: ", name);
+        }
+    #endif
 
     // Construct the core library path
     godot::String lib_path;
@@ -122,7 +130,7 @@ bool RetroHost::load_core(godot::String name)
                                           ". Error: ", GetLastErrorAsStr());
         return false;
     }
-#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID) || defined(PLATFORM_MACOS)
     this->core.handle = dlopen(lib_path.utf8().get_data(), RTLD_LAZY);
     if (this->core.handle == nullptr) {
         godot::UtilityFunctions::printerr("[RetroHost] Failed to load core: ", lib_path, 
@@ -174,7 +182,7 @@ void RetroHost::unload_core()
         FreeLibrary(this->core.handle);
         this->core.handle = NULL;
     }
-#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID) || defined(PLATFORM_MACOS)
     if (this->core.handle != nullptr) {
         dlclose(this->core.handle);
         this->core.handle = nullptr;

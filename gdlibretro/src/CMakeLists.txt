@@ -4,7 +4,10 @@
 if (ANDROID)
     target_link_libraries(${PROJECT_NAME} PUBLIC dl log)
     add_definitions(-DPLATFORM_ANDROID)
-elseif (UNIX AND NOT APPLE) # Linux
+elseif (APPLE) # macOS
+    target_link_libraries(${PROJECT_NAME} PUBLIC dl)
+    add_definitions(-DPLATFORM_MACOS)
+elseif (UNIX) # Linux
     target_link_libraries(${PROJECT_NAME} PUBLIC dl)
     add_definitions(-DPLATFORM_LINUX)
 elseif (WIN32)
