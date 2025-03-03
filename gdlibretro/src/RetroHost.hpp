@@ -17,6 +17,9 @@
 #elif __ANDROID__
 #include <dlfcn.h>
 #define PLATFORM_ANDROID
+#elif __APPLE__
+#include <dlfcn.h>
+#define PLATFORM_MACOS
 #endif
 
 class RetroHost : public godot::Object
@@ -100,7 +103,7 @@ private:
     {
 #ifdef PLATFORM_WINDOWS
         HINSTANCE handle;
-#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_ANDROID) || defined(PLATFORM_MACOS) 
         void *handle;
 #endif
         bool initialized = false;

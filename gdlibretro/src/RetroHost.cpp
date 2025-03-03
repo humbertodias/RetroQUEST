@@ -17,6 +17,9 @@
 #elif __ANDROID__
 #include <dlfcn.h>
 #define PLATFORM_ANDROID
+#elif __APPLE__
+#include <dlfcn.h>
+#define PLATFORM_MACOS
 #endif
 
 // Returns the last error message as a string

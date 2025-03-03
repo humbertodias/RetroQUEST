@@ -18,7 +18,7 @@ echo "Building for ${OS}-${ARCH}"
 
 cd gdlibretro
 git submodule update --init --recursive
-cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLinux" -B "${BUILD_DIR}"
+cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLAGS="-DLinux -Wformat-nonliteral -Werror -Wno-shadow" -B "${BUILD_DIR}"
 cmake --build "${BUILD_DIR}"
 
 # Move built files
