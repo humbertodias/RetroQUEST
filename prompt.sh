@@ -1,5 +1,5 @@
 clear
-rm "prompt.md"
+rm -f "prompt.md"
 
 write(){
     echo "$1" >> ./prompt.md
@@ -30,6 +30,8 @@ for file in $files; do
     fi
 done
 
+mkdir -p logs
+> logs/gdextension.log
 write "--- logs/gdextension.log ---"
 write "$(cat logs/gdextension.log)"
 
