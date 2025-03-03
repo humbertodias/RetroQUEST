@@ -11,7 +11,6 @@ OS=$(uname -s)
 ARCH=$(uname -m)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BUILD_DIR="build"
-LIB_PATH="${BUILD_DIR}/LibRetroHost/lib/${OS}-${ARCH}"
 OUTPUT_ZIP="gdlibretro-${OS}-${ARCH}.zip"
 
 echo "Building for ${OS}-${ARCH}"
@@ -22,7 +21,7 @@ cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -DLINUX=true -DCMAKE_CXX_FLA
 cmake --build "${BUILD_DIR}"
 
 # Move built files
-mv -fv "${LIB_PATH}/libLibRetroHost"* "${SCRIPT_DIR}/addons/"
+mv -fv "${BUILD_DIR}/LibRetroHost/lib/${OS}-*/libLibRetroHost-d.*" "${SCRIPT_DIR}/addons/"
 
 # Clean up and zip
 rm -rf "${BUILD_DIR}"
