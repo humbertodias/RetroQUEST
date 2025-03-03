@@ -36,10 +36,10 @@ void RetroHost::forwarded_input( const godot::Ref<godot::InputEvent> &event )
         auto key_event = godot::Object::cast_to<godot::InputEventKey>( event.ptr() );
 
         // Up the bool value 0x1 to 0xFF so we have enough bits for the & operation
-        uint16_t modifiers = (RETROKMOD_ALT & ( key_event->is_alt_pressed() ? 0xFF : 0 )) |
-                             (RETROKMOD_CTRL & ( key_event->is_ctrl_pressed() ? 0xFF : 0 )) |
-                             (RETROKMOD_META & ( key_event->is_meta_pressed() ? 0xFF : 0 )) |
-                             (RETROKMOD_SHIFT & ( key_event->is_shift_pressed() ? 0xFF : 0 ));
+        // uint16_t modifiers = (RETROKMOD_ALT & ( key_event->is_alt_pressed() ? 0xFF : 0 )) |
+        //                      (RETROKMOD_CTRL & ( key_event->is_ctrl_pressed() ? 0xFF : 0 )) |
+        //                      (RETROKMOD_META & ( key_event->is_meta_pressed() ? 0xFF : 0 )) |
+        //                      (RETROKMOD_SHIFT & ( key_event->is_shift_pressed() ? 0xFF : 0 ));
 
         auto retro_key = godotKeyToRetroKey(key_event->get_key_label());
 
@@ -53,11 +53,11 @@ void RetroHost::forwarded_input( const godot::Ref<godot::InputEvent> &event )
         if(retro_key > RETROK_LAST)
             return;
 
-        if (this->core.retro_keyboard_event_callback) {
-            this->core.retro_keyboard_event_callback(key_event->is_pressed(), retro_key, 0, modifiers);
-        } else {
+        // if (this->core.retro_keyboard_event_callback) {
+        //     this->core.retro_keyboard_event_callback(key_event->is_pressed(), retro_key, 0, modifiers);
+        // } else {
             godot::UtilityFunctions::printerr("[RetroHost] retro_keyboard_event_callback is not set.");
-        }
+        // }
 
         keyboard_state[retro_key] = key_event->is_pressed();
     }
