@@ -27,6 +27,9 @@ jobs:
 
       - name: Build
         run: ./build_gdlibretro.sh
+
+      - name: Compress
+        run: zip -r -9 "gdlibretro-${{ runner.os }}-${{ runner.arch }}.zip" addons/LibRetroHost.gdextension addons/*.so
         
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -49,6 +52,9 @@ jobs:
 
       - name: Build
         run: ./build_gdlibretro.sh
+
+      - name: Compress
+        run: zip -r -9 "gdlibretro-${{ runner.os }}-${{ runner.arch }}.zip" addons/LibRetroHost.gdextension addons/*.dylib
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
