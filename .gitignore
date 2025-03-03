@@ -9,3 +9,5 @@ libretro-cores
 prompt.md
 *.import
 logs
+*.zip
+*.dylib
