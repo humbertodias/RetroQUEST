@@ -8,3 +8,5 @@ vicerc*
 
 !dosbox_pure_libretro.dll
 build
+cmake-build-debug
+.idea
