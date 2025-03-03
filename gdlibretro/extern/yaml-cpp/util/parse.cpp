@@ -16,11 +16,11 @@ class NullEventHandler : public YAML::EventHandler {
                 const std::string&) override {}
 
   void OnSequenceStart(const YAML::Mark&, const std::string&, YAML::anchor_t,
-                       YAML::EmitterStyle::value) override {}
+                       EmitterStyle::value) override {}
   void OnSequenceEnd() override {}
 
   void OnMapStart(const YAML::Mark&, const std::string&, YAML::anchor_t,
-                  YAML::EmitterStyle::value) override {}
+                  EmitterStyle::value) override {}
   void OnMapEnd() override {}
 };
 
