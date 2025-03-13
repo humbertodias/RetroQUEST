@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://hcpj8enrmmlm"
 path.s3tc="res://.godot/imported/sega_genesis_model_2__sega_mega_drive_10.png-c718e2f4fe8786d6590677e4e93c58b8.s3tc.ctex"
+path.etc2="res://.godot/imported/sega_genesis_model_2__sega_mega_drive_10.png-c718e2f4fe8786d6590677e4e93c58b8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/consoles/sega_genesis_model_2__sega_mega_drive_10.png"
-dest_files=["res://.godot/imported/sega_genesis_model_2__sega_mega_drive_10.png-c718e2f4fe8786d6590677e4e93c58b8.s3tc.ctex"]
+dest_files=["res://.godot/imported/sega_genesis_model_2__sega_mega_drive_10.png-c718e2f4fe8786d6590677e4e93c58b8.s3tc.ctex", "res://.godot/imported/sega_genesis_model_2__sega_mega_drive_10.png-c718e2f4fe8786d6590677e4e93c58b8.etc2.ctex"]
 
 [params]
 

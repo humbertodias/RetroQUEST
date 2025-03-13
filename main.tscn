@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://8roky2tr13v8"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_36sr1"]
+[ext_resource type="Script" uid="uid://v41bsmk5ccld" path="res://main.gd" id="1_36sr1"]
 [ext_resource type="ArrayMesh" uid="uid://bggt7a5musnhs" path="res://assets/kenney_furniture-kit/Models/OBJ format/cabinetTelevision.obj" id="2_h1lnb"]
 [ext_resource type="Texture2D" uid="uid://rpfpax3cx88g" path="res://assets/textures/close-up-wooden-texture_23-2147625744.jpg" id="2_hgnca"]
 [ext_resource type="PackedScene" uid="uid://bkt5sw3j026sx" path="res://xr_origin_3d.tscn" id="2_jdtaa"]

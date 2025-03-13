@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dajnw4utx1a03"]
 
-[ext_resource type="Script" path="res://node_3d.gd" id="1_xccqp"]
-[ext_resource type="PackedScene" uid="uid://bv5wch4ufqnkf" path="res://old_computer/scene.gltf" id="1_yhqy6"]
+[ext_resource type="Script" uid="uid://baqelf41qorgn" path="res://node_3d.gd" id="1_xccqp"]
+[ext_resource type="PackedScene" uid="uid://bms7ldq520d2" path="res://old_computer/scene.gltf" id="1_yhqy6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_glr6o"]
 

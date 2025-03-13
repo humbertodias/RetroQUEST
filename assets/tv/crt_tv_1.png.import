@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://da2il3exoek8n"
 path.s3tc="res://.godot/imported/crt_tv_1.png-dd50e8197cf654af0565be1983906fbd.s3tc.ctex"
+path.etc2="res://.godot/imported/crt_tv_1.png-dd50e8197cf654af0565be1983906fbd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/tv/crt_tv_1.png"
-dest_files=["res://.godot/imported/crt_tv_1.png-dd50e8197cf654af0565be1983906fbd.s3tc.ctex"]
+dest_files=["res://.godot/imported/crt_tv_1.png-dd50e8197cf654af0565be1983906fbd.s3tc.ctex", "res://.godot/imported/crt_tv_1.png-dd50e8197cf654af0565be1983906fbd.etc2.ctex"]
 
 [params]
 
