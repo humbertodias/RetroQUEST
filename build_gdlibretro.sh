@@ -12,4 +12,3 @@ git submodule update --init --recursive
 cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -B build
 cmake --build build
 find . -name "libLibRetroHost-d.*" -exec mv -v {} "${SCRIPT_DIR}/addons/" \;
-rm -rf build
