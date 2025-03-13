@@ -7,7 +7,7 @@ static bool keyboard_state[RETROK_LAST] = { false };
 
 void RetroHost::core_input_poll( void )
 {
-    // godot::UtilityFunctions::print( "Input poll" );
+    godot::UtilityFunctions::print( "Input poll" );
 }
 
 int16_t RetroHost::core_input_state( unsigned port, unsigned device, unsigned index, unsigned id )
@@ -15,15 +15,15 @@ int16_t RetroHost::core_input_state( unsigned port, unsigned device, unsigned in
     switch ( device )
     {
         case RETRO_DEVICE_KEYBOARD:
-            //godot::UtilityFunctions::print( "Input state: port: ", port, " device: ", device,
-                                            // " index: ", index, " id: ", id);
+            godot::UtilityFunctions::print( "Input state: port: ", port, " device: ", device,
+                                            " index: ", index, " id: ", id);
             auto retro_key = id;
 
             if(retro_key > RETROK_LAST)
                 return false;
 
             auto st = keyboard_state[retro_key];
-            //godot::UtilityFunctions::print( "Input state: ", st);
+            godot::UtilityFunctions::print( "Input state: ", st);
             return st;
     }
     return 0;
@@ -35,7 +35,7 @@ void RetroHost::forwarded_input( const godot::Ref<godot::InputEvent> &event )
     {
         auto key_event = godot::Object::cast_to<godot::InputEventKey>( event.ptr() );
 
-        // Up the bool value 0x1 to 0xFF so we have enough bits for the & operation
+        // // Up the bool value 0x1 to 0xFF so we have enough bits for the & operation
         // uint16_t modifiers = (RETROKMOD_ALT & ( key_event->is_alt_pressed() ? 0xFF : 0 )) |
         //                      (RETROKMOD_CTRL & ( key_event->is_ctrl_pressed() ? 0xFF : 0 )) |
         //                      (RETROKMOD_META & ( key_event->is_meta_pressed() ? 0xFF : 0 )) |

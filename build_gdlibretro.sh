@@ -7,8 +7,12 @@ set -e  # Exit on error
 # git clone https://github.com/gabrielmedici/gdlibretro
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 cd gdlibretro
 git submodule update --init --recursive
 cmake -DNO_GIT_REVISION=ON -DCMAKE_BUILD_TYPE=Debug -B build
 cmake --build build
-find . -name "libLibRetroHost-d.*" -exec mv -v {} "${SCRIPT_DIR}/addons/" \;
+
+cp ./build/LibRetroHost/lib/Linux-x86_64/libLibRetroHost-d.so ${SCRIPT_DIR}/addons/
+cp ./build/LibRetroHost/lib/Linux-x86_64/libLibRetroHost-d.so demo/bin/LibRetroHost/
+rm -rf build/LibRetroHost

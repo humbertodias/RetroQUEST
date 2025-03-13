@@ -88,6 +88,8 @@ RetroHost *RetroHost::get_singleton()
         }                                                                                           \
     } while (0)
 
+    
+
 bool RetroHost::load_core(godot::String name)
 {
     // Unload any previously loaded core
@@ -154,11 +156,48 @@ bool RetroHost::load_core(godot::String name)
     load_symbol_return_false_on_err(this->core.handle, this->core.retro_unload_game, retro_unload_game);
     // load_symbol_return_false_on_err(this->core.handle, this->core.retro_keyboard_event_callback, retro_keyboard_event_callback);
 
+    // load_symbol_return_false_on_err( this->core.handle, set_environment, retro_set_environment );
+    // load_symbol_return_false_on_err( this->core.handle, set_video_refresh, retro_set_video_refresh );
+    // load_symbol_return_false_on_err( this->core.handle, set_input_poll, retro_set_input_poll );
+    // load_symbol_return_false_on_err( this->core.handle, set_input_state, retro_set_input_state );
+    // load_symbol_return_false_on_err( this->core.handle, set_audio_sample, retro_set_audio_sample );
+    // load_symbol_return_false_on_err( this->core.handle, set_audio_sample_batch, retro_set_audio_sample_batch );
+
     godot::UtilityFunctions::print("[RetroHost] All symbols loaded successfully.");
 
     // Initialize core variables and RetroArch core
     this->core_name = name;
     this->load_core_variables();
+
+
+    // May god have mercy on our souls for the crimes we are about to commit
+    // Blame c++
+
+    // set_environment(
+    //     []( unsigned cmd, void *data ) { return get_singleton()->core_environment( cmd, data ); } );
+
+    // set_video_refresh( []( const void *data, unsigned width, unsigned height, size_t pitch ) {
+    //     get_singleton()->core_video_refresh( data, width, height, pitch );
+    // } );
+
+    // set_input_poll( []( void ) { get_singleton()->core_input_poll(); } );
+
+    // set_input_state( []( unsigned port, unsigned device, unsigned index, unsigned id ) {
+    //     return get_singleton()->core_input_state( port, device, index, id );
+    // } );
+
+    // set_audio_sample(
+    //     []( int16_t left, int16_t right ) { get_singleton()->core_audio_sample( left, right ); } );
+
+    // set_audio_sample_batch( []( const int16_t *data, size_t frames ) {
+    //     return get_singleton()->core_audio_sample_batch( data, frames );
+    // } );
+
+    // End of c++ crimes
+
+
+
+    // this->save_core_variables();
     godot::UtilityFunctions::print("[RetroHost] Core variables loaded.");
 
     godot::UtilityFunctions::print("[RetroHost] Initializing core...");
@@ -207,6 +246,8 @@ void RetroHost::_bind_methods()
     godot::ClassDB::bind_method(godot::D_METHOD("unload_core"), &RetroHost::unload_core);
     godot::ClassDB::bind_method(godot::D_METHOD("run"), &RetroHost::run);
     godot::ClassDB::bind_method(godot::D_METHOD("load_game", "game_info"), &RetroHost::load_game);
+    godot::ClassDB::bind_method( godot::D_METHOD( "get_frame_buffer" ), &RetroHost::get_frame_buffer );
+    godot::ClassDB::bind_method( godot::D_METHOD( "forward_input", "event" ), &RetroHost::forwarded_input );
 }
 
 bool RetroHost::load_game(const godot::Dictionary &game_info) {

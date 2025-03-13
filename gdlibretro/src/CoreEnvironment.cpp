@@ -4,31 +4,56 @@
 #include <sstream>
 
 // Logging function for the core
-void core_log(enum retro_log_level level, const char *fmt, ...)
-{
-    static const char *levelstr[] = {"DEBUG", "INFO", "WARN", "ERROR"};
+// void core_log(enum retro_log_level level, const char *fmt, ...)
+// {
+//     static const char *levelstr[] = {"DEBUG", "INFO", "WARN", "ERROR"};
 
-    std::ostringstream oss;
-    oss << "[RetroHost Loaded CORE][" << levelstr[level - 1] << "] ";
+//     std::ostringstream oss;
+//     oss << "[RetroHost Loaded CORE][" << levelstr[level - 1] << "] ";
 
-    va_list args;
-    va_start(args, fmt);
+//     va_list args;
+//     va_start(args, fmt);
 
-    for (; *fmt; ++fmt) {
-        if (*fmt == '%' && *(fmt + 1)) {
-            ++fmt;
-            if (*fmt == 'd') oss << va_arg(args, int);
-            else if (*fmt == 's') oss << va_arg(args, const char *);
-            else if (*fmt == 'f') oss << va_arg(args, double);
-            else oss << '%' << *fmt;
-        } else {
-            oss << *fmt;
-        }
+//     for (; *fmt; ++fmt) {
+//         if (*fmt == '%' && *(fmt + 1)) {
+//             ++fmt;
+//             if (*fmt == 'd') oss << va_arg(args, int);
+//             else if (*fmt == 's') oss << va_arg(args, const char *);
+//             else if (*fmt == 'f') oss << va_arg(args, double);
+//             else oss << '%' << *fmt;
+//         } else {
+//             oss << *fmt;
+//         }
+//     }
+
+//     va_end(args);
+//     godot::UtilityFunctions::print(godot::String(oss.str().c_str()));
+// }
+
+static void core_log(enum retro_log_level level, const char * fmt, ...) {
+    char buffer[4096] = {0};
+    static const char * levelstr[] = {
+      "dbg",
+      "inf",
+      "wrn",
+      "err"
+    };
+    va_list va;
+  
+    va_start(va, fmt);
+    vsnprintf(buffer, sizeof(buffer), fmt, va);
+    va_end(va);
+  
+    if (level == 0)
+      return;
+  
+    fprintf(stderr, "[%s] %s", levelstr[level], buffer);
+    fflush(stderr);
+  
+    if (level == RETRO_LOG_ERROR) {
+      exit(EXIT_FAILURE);
     }
-
-    va_end(args);
-    godot::UtilityFunctions::print(godot::String(oss.str().c_str()));
-}
+  }
 
 // Retrieves a core variable
 bool RetroHost::get_variable(retro_variable *variable)

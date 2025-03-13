@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var tex_rect = get_node("TextureRect")
+#@onready var tex_rect = get_node("TextureRect")
 func _ready():
 	# Loads the core, the argument is the dll name inside the libretro-cores folder. WITHOUT THE .DLL
 	RetroHost.load_core("dosbox_pure_libretro")
